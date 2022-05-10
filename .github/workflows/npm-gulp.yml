@@ -25,6 +25,8 @@ jobs:
 
     - name: Build 
       run: |
+        rm -f package-lock.json
+        npx yarn-upgrade-all
         yarn
         yarn upgrade
         yarn gulp release
@@ -38,6 +40,6 @@ jobs:
         verbose: false
         draft: false
         prerelease: false
-        update_latest_release: true
+        update_latest_release: false
         tags: false
-        tag_name: build
+        tag_name: master
