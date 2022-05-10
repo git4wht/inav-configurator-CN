@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest # windows-latest ubuntu-latest
+    runs-on: windows-latest # windows-latest ubuntu-latest
 
     strategy:
       matrix:
@@ -33,7 +33,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
       with:
         file: "apps/*.tar.gz;apps/*.zip"
-#         release_id: ${{ steps.create_release.outputs.id }}
         overwrite: true
         verbose: false
         draft: false
