@@ -27,7 +27,55 @@ jobs:
       run: |
         npm install
         gulp release
-    - name: publish
-      run: npm publish
+
+    - name: Create Draft Release
+      id: create_release
+      uses: actions/create-release@v1
       env:
-        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        release_name: ${{ steps.version.outputs.version }}
+        tag_name: ${{ github.ref }}
+        draft: true
+        prerelease: true
+
+    - name: upload Linux-32
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./apps/INAV-Configurator_linux32_5.0.0.tar.gz
+        asset_name: INAV-Configurator_linux32_5.0.0.tar.gz
+        asset_content_type: application/gzip
+
+    - name: upload Linux-64
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./apps/INAV-Configurator_linux64_5.0.0.tar.gz
+        asset_name: INAV-Configurator_linux64_5.0.0.tar.gz
+        asset_content_type: application/gzip
+
+
+    - name: upload Windows-32
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./apps/INAV-Configurator_linux32_5.0.0.tar.gz
+        asset_name: INAV-Configurator_win32_5.0.0.zip
+        asset_content_type: application/zip
+
+    - name: upload Windows-64
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./apps/INAV-Configurator_linux64_5.0.0.tar.gz
+        asset_name: INAV-Configurator_win64_5.0.0.zip
+        asset_content_type: application/zip
