@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest # windows-latest ubuntu-latest
 
     strategy:
       matrix:
@@ -35,7 +35,9 @@ jobs:
         file: "apps/*.tar.gz;apps/*.zip"
         release_id: ${{ steps.create_release.outputs.id }}
         overwrite: true
-        verbose: true
+        verbose: false
         draft: false
-        prerelease: true
+        prerelease: false
+        update_latest_release: true
         tags: false
+        tag_name: build
