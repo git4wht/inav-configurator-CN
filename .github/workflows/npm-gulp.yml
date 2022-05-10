@@ -40,11 +40,10 @@ jobs:
         prerelease: true
 
     - uses: xresloader/upload-to-github-release@master
-       env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-       with:
-         file: "apps/*.tar.gz;apps/*.zip"
-#          delete_file: "random-name-*.txt;random-*.txt"
-         release_id: ${{ steps.create_release.outputs.id }}
-         overwrite: true
-         verbose: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        file: "apps/*.tar.gz;apps/*.zip"
+        release_id: ${{ steps.create_release.outputs.id }}
+        overwrite: true
+        verbose: true
