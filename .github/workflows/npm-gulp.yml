@@ -42,6 +42,6 @@ jobs:
         verbose: false
         draft: false
         prerelease: false
-        update_latest_release: false
+        update_latest_release: true
         tags: false
         tag_name: master
