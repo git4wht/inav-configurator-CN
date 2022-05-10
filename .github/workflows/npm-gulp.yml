@@ -32,7 +32,7 @@ jobs:
       id: create_release
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
       with:
         release_name: ${{ steps.version.outputs.version }}
         tag_name: ${{ github.ref }}
@@ -42,7 +42,7 @@ jobs:
     - name: upload Linux-32
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./apps/INAV-Configurator_linux32_5.0.0.tar.gz
@@ -52,7 +52,7 @@ jobs:
     - name: upload Linux-64
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./apps/INAV-Configurator_linux64_5.0.0.tar.gz
@@ -63,7 +63,7 @@ jobs:
     - name: upload Windows-32
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./apps/INAV-Configurator_linux32_5.0.0.tar.gz
@@ -73,7 +73,7 @@ jobs:
     - name: upload Windows-64
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./apps/INAV-Configurator_linux64_5.0.0.tar.gz
