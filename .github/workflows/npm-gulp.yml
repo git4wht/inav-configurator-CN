@@ -25,10 +25,10 @@ jobs:
 
     - name: Build 
       run: |
-        rm -f package-lock.json
+        rm -f package-lock.json yarn.lock
         # npx yarn-upgrade-all
         yarn
-        # yarn upgrade
+        yarn upgrade --latest
         yarn gulp release
 
     - uses: xresloader/upload-to-github-release@master
