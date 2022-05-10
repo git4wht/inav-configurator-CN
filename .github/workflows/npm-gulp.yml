@@ -26,7 +26,7 @@ jobs:
     - name: Build 
       run: |
         npm ci
-        npm gulp release --platform="win64"
+        npm run gulp release --platform="win64"
 
     - uses: xresloader/upload-to-github-release@master
       env:
