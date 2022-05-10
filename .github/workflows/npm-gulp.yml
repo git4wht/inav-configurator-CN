@@ -23,7 +23,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         registry-url: https://npm.pkg.github.com/
 
-    - name: Build
+    - name: Build ${{ steps.version.outputs.version }} | ${{ github.ref }}
       run: |
         npm install
         gulp release
@@ -32,50 +32,19 @@ jobs:
       id: create_release
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        release_name: ${{ steps.version.outputs.version }}
         tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
         draft: true
         prerelease: true
 
-    - name: upload Linux-32
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./apps/INAV-Configurator_linux32_5.0.0.tar.gz
-        asset_name: INAV-Configurator_linux32_5.0.0.tar.gz
-        asset_content_type: application/gzip
-
-    - name: upload Linux-64
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./apps/INAV-Configurator_linux64_5.0.0.tar.gz
-        asset_name: INAV-Configurator_linux64_5.0.0.tar.gz
-        asset_content_type: application/gzip
-
-
-    - name: upload Windows-32
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./apps/INAV-Configurator_linux32_5.0.0.tar.gz
-        asset_name: INAV-Configurator_win32_5.0.0.zip
-        asset_content_type: application/zip
-
-    - name: upload Windows-64
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./apps/INAV-Configurator_linux64_5.0.0.tar.gz
-        asset_name: INAV-Configurator_win64_5.0.0.zip
-        asset_content_type: application/zip
+    - uses: xresloader/upload-to-github-release@master
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       with:
+         file: "apps/*.tar.gz;apps/*.zip"
+#          delete_file: "random-name-*.txt;random-*.txt"
+         release_id: ${{ steps.create_release.outputs.id }}
+         overwrite: true
+         verbose: true
