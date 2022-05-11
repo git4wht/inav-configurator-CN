@@ -42,7 +42,7 @@ jobs:
         draft: false
         prerelease: false
 
-    - uses: xresloader/upload-to-github-release@latest
+    - uses: xresloader/upload-to-github-release@master
       env:
         GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
       with:
