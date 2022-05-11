@@ -25,9 +25,9 @@ jobs:
 
     - name: Prepare
       run: |
-        apt update
-        apt install wine
-        apt install mono
+        sudo apt update
+        sudo apt install wine
+        sudo apt install mono
     - name: Build 
       run: |
         # rm -f package-lock.json yarn.lock
