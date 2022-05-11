@@ -29,15 +29,25 @@ jobs:
         yarn upgrade --latest
         yarn gulp release
 
-    - uses: xresloader/upload-to-github-release@master
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+          Build for use.
+        draft: false
+        prerelease: false
+
+    - uses: xresloader/upload-to-github-release@latest
       env:
         GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
       with:
         file: "apps/*.tar.gz;apps/*.zip"
+        delete_file: "apps/*.tar.gz;apps/*.zip"
+        release_id: ${{ steps.create_release.outputs.id }}
         overwrite: true
-        verbose: false
-        draft: false
-        prerelease: false
-        update_latest_release: true
-        # tags: false
-        # tag_name: master
+        verbose: true
