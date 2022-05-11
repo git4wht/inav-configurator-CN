@@ -35,7 +35,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-#         tag_name: ${{ github.ref }}
+        tag_name: ${{ github.ref.name }}
         release_name: Release ${{ github.ref.name }}
         body: |
           Build for use.
@@ -50,4 +50,5 @@ jobs:
         delete_file: "apps/*.tar.gz;apps/*.zip"
         release_id: ${{ steps.create_release.outputs.id }}
         overwrite: true
-        verbose: true
+        draft: false
+        update_latest_release: true
