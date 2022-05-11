@@ -23,6 +23,11 @@ jobs:
         node-version: ${{ matrix.node-version }}
 #         registry-url: https://npm.pkg.github.com/
 
+    - name: Prepare
+      run: |
+        apt update
+        apt install wine
+        apt install mono
     - name: Build 
       run: |
         # rm -f package-lock.json yarn.lock
@@ -43,5 +48,5 @@ jobs:
         draft: false
         prerelease: false
         update_latest_release: true
-        tags: false
-        tag_name: master
+        # tags: false
+        # tag_name: master
