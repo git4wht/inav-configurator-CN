@@ -48,7 +48,7 @@ jobs:
       with:
         file: "apps/*.tar.gz;apps/*.zip"
         delete_file: "apps/*.tar.gz;apps/*.zip"
-        release_id: ${{ steps.create_release.outputs.id }}
+        tag_name: ${{ github.ref_name }}
         overwrite: true
         draft: false
         update_latest_release: true
